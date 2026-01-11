@@ -1,0 +1,27 @@
+/* 全文字体 */
+@font-face {
+  font-family: 'ArkPixel';
+  src: url('/fonts/ark-pixel-12px-proportional-zh_cn.ttf.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* 代码字体 */
+@font-face {
+  font-family: 'RetroPixel';
+  src: url('/fonts/retro-pixel-cute-mono.ttf.woff2') format('woff2');
+  font-display: swap;
+}
+/* 设置全文字体 */
+html, body {
+  font-family: 'ArkPixel', sans-serif;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+}
+
+/* 设置代码字体 */
+/* Zola 默认渲染代码块通常包含 pre, code 以及 .zola-code 等类名 */
+pre, code, kbd, samp {
+  font-family: 'RetroPixel', 'ArkPixel', monospace!important;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+}

@@ -1,0 +1,206 @@
+{% set data = load_data(path="data/x.json", format="json", required=false) %}
+{% if data and data[id] %} {% set item = data[id] %} {% set limit = 200 %} {#
+默认截断字数 #} {% set is_long = item.text | length > limit %}
+<style>
+/* ===============================
+   全局缩略图配置（屏幕 5%）
+   =============================== */
+:root {
+  --thumb-size: 10vmin; /* 视口宽高较小者的 5% */
+  --thumb-gap: 8px;
+  --thumb-radius: 8px;
+  --thumb-bg: rgba(0, 0, 0, 0.04);
+  --thumb-border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   图片网格容器
+   =============================== */
+.sc-imgs-{{ id }} {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--thumb-size), 1fr)
+  );
+  gap: var(--thumb-gap);
+  margin-top: 8px;
+}
+
+/* ===============================
+   缩略图外壳（尺寸受 10% 视口限制）
+   =============================== */
+.sc-imgs-{{ id }} .sc-thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  max-width: var(--thumb-size);
+  max-height: var(--thumb-size);
+
+  background: var(--thumb-bg);
+  border: var(--thumb-border);
+  border-radius: var(--thumb-radius);
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+}
+
+/* ===============================
+   图片本体：按比例缩放，不裁剪
+   =============================== */
+.sc-imgs-{{ id }} .sc-thumb img.sc-img-item {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+
+  object-fit: contain;       /* 关键：不裁剪 */
+  object-position: center;
+
+  display: block;
+}
+
+/* ===============================
+   Hover 效果（不影响 Lightense）
+   =============================== */
+.sc-imgs-{{ id }} .sc-thumb:hover {
+  transform: translateY(-3px);
+  transition: transform 160ms ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   超小屏兜底（防止过小）
+   =============================== */
+@media (max-width: 480px) {
+  :root {
+    --thumb-size: 6vmin;
+  }
+}
+</style>
+
+<div
+  class="sc-{{ id }}"
+  style="
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    background: var(--bg);
+    color: var(--txt);
+  "
+>
+  <div style="display: flex; align-items: center; margin-bottom: 0.8rem">
+    <a
+      href="{{ item.user_link }}"
+      target="_blank"
+      style="
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: inherit;
+      "
+    >
+      <img
+        src="{{ item.face }}"
+        style="
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          margin-right: 10px;
+          border: 1px solid var(--brd);
+        "
+        referrerpolicy="no-referrer"
+      />
+      <div style="font-weight: bold; font-size: 0.95rem">{{ item.user }}</div>
+    </a>
+  </div>
+
+  {% if mode is defined and mode == "archive" %} {# --- 存档模式：折叠展开 --- #}
+  <details>
+    <summary
+      style="
+        cursor: pointer;
+        color: var(--accent);
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        outline: none;
+      "
+    >
+      查看存档内容 (包含 {{ item.images | length }} 张图片)
+    </summary>
+
+    <div style="padding-top: 8px; border-top: 1px dashed var(--brd)">
+      <div style="line-height: 1.6; white-space: pre-wrap; margin-bottom: 8px">
+        {{ item.text }}
+      </div>
+
+      {# 图片区域 #} {% if item.images %} {% set img_count = item.images |
+      length %} {% set grid_type = "fallback" %} {% if img_count == 1 %}{% set
+      grid_type = "1" %}{% endif %} {% if img_count == 2 %}{% set grid_type =
+      "2" %}{% endif %} {% if img_count == 3 %}{% set grid_type = "3" %}{% endif
+      %} {% if img_count == 4 %}{% set grid_type = "4" %}{% endif %}
+
+      <div class="sc-imgs-{{ id }}" data-count="{{ grid_type }}">
+        {% for img in item.images %}
+        <img
+          src="{{ img }}"
+          class="sc-img-item"
+          referrerpolicy="no-referrer"
+          loading="lazy"
+        />
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </details>
+
+  {% else %} {# --- 默认模式：截断 + 图片 + 底部来源 --- #}
+  <div style="line-height: 1.6; white-space: pre-wrap">
+    {% if is_long %} {{ item.text | truncate(length=limit, end="") }}
+    <span style="opacity: 0.6">……</span>
+    {% else %} {{ item.text }} {% endif %}
+  </div>
+
+  {# 默认模式下也显示图片（通常社交卡片都显示图） #} {% if item.images %} {% set
+  img_count = item.images | length %} {% set grid_type = "fallback" %} {% if
+  img_count == 1 %}{% set grid_type = "1" %}{% endif %} {% if img_count == 2
+  %}{% set grid_type = "2" %}{% endif %} {% if img_count == 3 %}{% set grid_type
+  = "3" %}{% endif %} {% if img_count == 4 %}{% set grid_type = "4" %}{% endif
+  %}
+
+  <div class="sc-imgs-{{ id }}" data-count="{{ grid_type }}">
+    {% for img in item.images %}
+    <img
+      src="{{ img }}"
+      class="sc-img-item"
+      referrerpolicy="no-referrer"
+      loading="lazy"
+    />
+    {% endfor %}
+  </div>
+  {% endif %} {% endif %}
+
+  <div
+    style="
+      margin-top: 10px;
+      border-top: 1px solid var(--brd);
+      padding-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+    "
+  >
+    <a
+      href="{{ item.link }}"
+      target="_blank"
+      class="sc-source-link"
+      title="点击跳转原始网页"
+    >
+      <span style="margin-right: 4px">{{ item.date }}</span>
+      <span>· X(Twitter) ↗</span>
+    </a>
+  </div>
+</div>
+{% endif %}
