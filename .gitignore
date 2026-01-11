@@ -1,3 +1,4 @@
 .history
 *.woff2
 public
+.python-version

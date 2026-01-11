@@ -1,0 +1,11 @@
+[project]
+name = "myblog-scripts"
+version = "0.1.0"
+description = "A static blog built with Zola"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "brotli>=1.2.0",
+    "fonttools>=4.61.1",
+    "requests>=2.32.5",
+]
