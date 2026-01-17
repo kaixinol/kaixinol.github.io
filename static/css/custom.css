@@ -25,3 +25,8 @@ pre, code, kbd, samp {
   image-rendering: pixelated;
   -webkit-font-smoothing: none;
 }
+
+body:not(.dark) [type="checkbox"],
+body:not(.dark) [type="radio"] {
+  color-scheme: light;
+}
