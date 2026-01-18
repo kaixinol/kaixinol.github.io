@@ -54,7 +54,7 @@ def get_bilibili_data(b_id):
     # --- 图片提取逻辑 ---
     images = []
     if 'item' in inner_card and 'pictures' in inner_card['item']:
-        images = [p['img_src']+"@720w_70q.avif" for p in inner_card['item']['pictures']]
+        images = [p['img_src']+"@1024w1024h_70q.avif" for p in inner_card['item']['pictures']]
     if 'origin' in inner_card:
             origin_json = json.loads(inner_card['origin'])
             orig_user = (
@@ -83,7 +83,7 @@ def get_bilibili_data(b_id):
             'text': content,
             'images': images,
             'date': format_date(ts),
-            'link': f'https://t.bilibili.com/{b_id}',
+            'link': f'https://bilibili.com/opus/{b_id}',
             'user_link': f'https://space.bilibili.com/{uid}',
         }
 
@@ -98,7 +98,7 @@ def get_x_data(x_id):
 
     images = []
     if 'media' in t and 'photos' in t['media']:
-        images = [p['url'].replace('orig','small') for p in t['media']['photos']]
+        images = [p['url'].replace('orig','medium') for p in t['media']['photos']]
 
     return {
         'user': t['author']['name'],

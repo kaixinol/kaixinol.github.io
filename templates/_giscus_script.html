@@ -1,16 +1,28 @@
-<script src="https://giscus.app/client.js"
-        data-repo="kaixinol/kaixinol.github.io"
-        data-repo-id="R_kgDOQ2JY2g"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOQ2JY2s4C0vYn"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+<div class="container">
+        <script crossorigin
+                data-category="Announcements"
+                data-category-id="DIC_kwDOQ2JY2s4C0vYn"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                data-mapping="pathname"
+                data-reactions-enabled="1"
+                data-repo="kaixinol/kaixinol.github.io"
+                data-repo-id="R_kgDOQ2JY2g"
+                defer
+                src="https://giscus.app/client.js"></script>
+        <script>
+    if (theme !== undefined) {
+      const theme =
+        JSON.parse(sessionStorage.getItem("appearance") || "{}")?.theme ||
+        "light";
+    }
+    const giscusScript = document.querySelector(
+      'script[src="https://giscus.app/client.js"]',
+    );
+    if (giscusScript) {
+      giscusScript.setAttribute("data-theme", theme);
+    }
+        </script>
+</div>

@@ -1,7 +1,31 @@
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto; margin: 1rem 0;">
-    <iframe
-        src="//player.bilibili.com/player.html?bvid={{ id }}&page=1&high_quality=1&danmaku=0"
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
-        allowfullscreen="true">
-    </iframe>
+<style>
+  .bili-video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 比例 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 1rem 0;
+    border-radius: 8px; /* 可选：让视频卡片圆角一点 */
+  }
+
+  .bili-video-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
+
+<div class="bili-video-container">
+  <iframe
+    src="//player.bilibili.com/player.html?bvid={{ id }}&page=1&high_quality=1&danmaku=0&autoplay=0"
+    class="bili-video-iframe"
+    allow="fullscreen"
+    loading="lazy"
+    title="Bilibili Video Player"
+  >
+  </iframe>
 </div>

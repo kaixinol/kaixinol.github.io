@@ -3,7 +3,7 @@ import zipfile
 from io import BytesIO
 from pathlib import Path
 
-import requests
+import niquests as requests
 from fontTools import subset
 
 # ---------------- 配置 ----------------
@@ -23,7 +23,7 @@ GITHUB_API_RELEASES = (
 
 
 # ---------------- 下载函数 ----------------
-def download_font(zip_name: str, font_name: str,repository: str):
+def download_font(zip_name: str, font_name: str, repository: str):
     """下载最新 release 的字体并解压"""
     r = requests.get(GITHUB_API_RELEASES.format(repository=repository))
     r.raise_for_status()
@@ -34,7 +34,7 @@ def download_font(zip_name: str, font_name: str,repository: str):
 
     resp = requests.get(url)
     resp.raise_for_status()
-    resp=resp.content
+    resp = resp.content
     with zipfile.ZipFile(BytesIO(resp)) as z:
         with z.open(font_name) as font_file:
             target_path = TARGET_DIR / font_name
@@ -56,6 +56,7 @@ def get_all_text():
             chars.update(data_path.read_text(encoding='utf-8'))
     # 基础可打印字符
     chars.update(c for c in string.printable if c.isprintable())
+    chars.update('查看存档内容(包含 张图片)')
     return ''.join(chars)
 
 
@@ -78,12 +79,15 @@ def subset_font(input_path: Path, text: str):
     print(f'Subset font saved to {input_path}')
     return input_path.stat().st_size
 
-mono_path,m_size = download_font(MONOSPACED_FONT_NAME, MONO_FONT_NAME,'retro-pixel-font')
-prop_path,p_size = download_font(PROPORTIONAL_FONT_NAME, PROP_FONT_NAME,'ark-pixel-font')
+
+mono_path, m_size = download_font(
+    MONOSPACED_FONT_NAME, MONO_FONT_NAME, 'retro-pixel-font'
+)
+prop_path, p_size = download_font(
+    PROPORTIONAL_FONT_NAME, PROP_FONT_NAME, 'ark-pixel-font'
+)
 mono_path.move(mono_path.parent.parent / mono_path.name)
 mono_path.parent.rmdir()
 all_text = get_all_text()
-prop_size = subset_font(
-    prop_path, all_text
-)
-print(f"字体压缩比例： {prop_size / p_size * 100:.2f}%")
+prop_size = subset_font(prop_path, all_text)
+print(f'字体压缩比例： {prop_size / p_size * 100:.2f}%')
