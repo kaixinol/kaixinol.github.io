@@ -4,11 +4,11 @@ import re
 from datetime import datetime
 from functools import wraps
 
-import requests
+import niquests as requests
 
 # X (Twitter) 通用 Header
 X_HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'User-Agent': 'KaesinoBlogSpider/1.0 (+https://github.com/kaixinol)',
     'Referer': 'https://www.google.com/',
 }
 
