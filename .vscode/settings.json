@@ -2,4 +2,6 @@
   "markdown.copyFiles.destination": {
     "**/*.md": "../../static/images/${documentBaseName}-${unixTime}.${fileExtName}"
   },
+  "deno.enable": true,
+  "deno.lint": true,
 }

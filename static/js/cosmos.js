@@ -1,6 +1,6 @@
 import SunCalc from "https://esm.sh/suncalc";
 
-(async function () {
+(function () {
   const CHINA_DEFAULT = { lat: 35.0, lon: 105.0 };
   let canvas = null;
   let ctx = null;
@@ -16,11 +16,19 @@ import SunCalc from "https://esm.sh/suncalc";
   // --- 逻辑判断 ---
   async function getIPLocation() {
     try {
+      //if detects China timezone, return the HACK for GFW
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz.match(/Asia\/(Shanghai|Chongqing|Harbin|Urumqi)/)) {
+        console.log("Cosmos.js: Detected China timezone, using hardcoded location.");
+        return {"Asia/Shanghai": { lat: 39.9042, lon: 116.4074 }, "Asia/Chongqing": { lat: 29.5630, lon: 106.5516 }, "Asia/Harbin": { lat: 45.7528, lon: 126.6583 }, "Asia/Urumqi": { lat: 43.8257, lon: 87.6167 }}[tz];
+      }
       const response = await fetch("https://ipapi.co/json/");
       const data = await response.json();
       if (data.latitude && data.longitude)
         return { lat: data.latitude, lon: data.longitude };
-    } catch (e) {}
+    } catch (_e) {
+      // ignore network/location errors and fall back to default
+    }
     return CHINA_DEFAULT;
   }
 
@@ -45,8 +53,8 @@ import SunCalc from "https://esm.sh/suncalc";
   }
 
   function initStars() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const w = globalThis.innerWidth;
+    const h = globalThis.innerHeight;
     const seededRand = createPrng(seed);
 
     // 密度稍微调低一点，配合稍大的尺寸，避免拥挤
@@ -77,15 +85,15 @@ import SunCalc from "https://esm.sh/suncalc";
           : 0.0001 + seededRand() * 0.0002,
         floatOffsetX: seededRand() * Math.PI * 2,
         floatOffsetY: seededRand() * Math.PI * 2,
-        ampX: isDynamic ? 3 + seededRand() * 4 : 0.2 + seededRand() * 0.4,
-        ampY: isDynamic ? 3 + seededRand() * 4 : 0.2 + seededRand() * 0.4,
+        ampX: isDynamic ? 1.5 + seededRand() * 2.0 : 0.2 + seededRand() * 0.4,
+        ampY: isDynamic ? 1.5 + seededRand() * 2.0 : 0.2 + seededRand() * 0.4,
       });
     }
   }
 
   function draw() {
     if (!ctx) return;
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, globalThis.innerWidth, globalThis.innerHeight);
     const time = Date.now();
 
     stars.forEach((s) => {
@@ -111,9 +119,9 @@ import SunCalc from "https://esm.sh/suncalc";
   // --- 高清适配与生命周期 ---
   function setupCanvas() {
     if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
+    const dpr = globalThis.devicePixelRatio || 1;
+    canvas.width = globalThis.innerWidth * dpr;
+    canvas.height = globalThis.innerHeight * dpr;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
   }
@@ -162,7 +170,7 @@ import SunCalc from "https://esm.sh/suncalc";
   });
 
   let resizeTimer;
-  window.addEventListener("resize", () => {
+  globalThis.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       if (canvas) {
