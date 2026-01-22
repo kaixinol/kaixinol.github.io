@@ -1,7 +1,7 @@
-{% extends "_base.html" %} {% block page %}homepage{% endblock page%} {% block
-lang %}{% if section.extra.lang %}{{ section.extra.lang }}{% else %}{{
-section.lang }}{% endif %}{% endblock lang %} {% block title %}{{ config.title
-}}{% endblock title %} {% block desc %}
+{% extends "_base.html" %} {% block page %} homepage {% endblock page %} {%
+block lang -%} {% if section.extra.lang -%} {{ section.extra.lang -}} {% else
+-%} {{ section.lang -}} {% endif -%} {%- endblock lang %} {%- block title -%} {{
+config.title }} {%- endblock title -%} {% block desc %}
 <meta name="description" content="{{ config.description }}" />
 {% endblock desc %} {% block head %} {% if config.markdown.highlight_theme ==
 "css" %} {% if config.extra.force_theme == "dark" %}
@@ -58,20 +58,55 @@ section.lang }}{% endif %}{% endblock lang %} {% block title %}{{ config.title
 </script>
 {% endif %} {% endblock head %} {% block content %}
 <div id="wrapper">
+  {% if page is defined and page.extra.cosmos %}
+  <script type="module" src="{{ get_url(path='js/cosmos.js') }}"></script>
+  {% endif %} {% if section is defined and section.extra.cosmos %}
+  <script type="module" src="{{ get_url(path='js/cosmos.js') }}"></script>
+  {% endif %}
+
   <main>
+    <section id="search" style="margin: 3rem 0 3rem 1rem; width: 50%">
+      <form
+        action="https://www.google.com/search"
+        method="get"
+        target="_blank"
+        rel="noopener"
+      >
+        <input
+          type="search"
+          name="as_q"
+          placeholder="Search…"
+          aria-label="Search"
+          autocomplete="off"
+          style="
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ccc;
+            font-family:
+              system-ui,
+              Segoe UI sans-serif;
+          "
+        />
+        <input
+          type="hidden"
+          name="as_sitesearch"
+          value="{{ config.base_url | trim_end_matches(pat='/') }}"
+        />
+      </form>
+    </section>
     <section id="info">
       {% if section.extra.avatar is starting_with("http") %}
-      <img src="{{ section.extra.avatar}}" class="avatar" />
+      <img src="{{ section.extra.avatar }}" class="avatar" />
       {% else %}
       <img src="{{ get_url(path=section.extra.avatar) }}" class="avatar" />
       {% endif %}
-
       <div id="text">
         <div>
           <span id="name">{{ section.extra.name }}</span>
-          {% if section.extra.id %}
-          <span id="id">@{{ section.extra.id }}</span>
-          {% endif %}
+          {% if section.extra.id %}<span id="id">@{{ section.extra.id }}</span
+          >{% endif %}
         </div>
         {% if section.extra.bio %}
         <div id="bio">{{ section.extra.bio }}</div>
@@ -111,7 +146,6 @@ section.lang }}{% endif %}{% endblock lang %} {% block title %}{{ config.title
           {% set icon_path = "icon/" ~ link.icon ~ ".svg" %} {% set icon =
           load_data(path=icon_path) %} {{ icon | safe }}
         </a>
-
         {% endfor %} {% if not section.extra.footer and not
         config.extra.force_theme %} {% set moon_icon =
         load_data(path="icon/moon.svg") %} {% set sun_icon =

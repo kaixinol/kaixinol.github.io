@@ -20,7 +20,7 @@ taxonomies = [{ name = "tags" }, { name = "categories" }]
 [markdown]
 highlight_code = true
 highlight_theme = "css"
-lazy_async_image = true
+lazy_async_image = false # do not enable it, see getzola/zola#2679
 extra_syntaxes_and_themes = ["themes/serene/highlight_themes"]
 highlight_themes_css = [
   { theme = "serene-light", filename = "hl-light.css" },
@@ -31,15 +31,13 @@ external_links_target_blank = true
 external_links_no_follow = true
 external_links_no_referrer = true
 smart_punctuation = true
-
 [slugify]
 paths = "on"
 taxonomies = "on"
-anchors = "on"
+anchors = "safe"
 math = true
 mermaid = true
 featured = true
-#=========================================================================================
 
 [extra]
 

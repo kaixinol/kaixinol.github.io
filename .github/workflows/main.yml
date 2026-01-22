@@ -19,10 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
-          submodules: true
+          submodules: recursive
+
       - name: Setup uv
         id: setup-uv
         uses: astral-sh/setup-uv@v7
@@ -32,9 +33,11 @@ jobs:
 
       - name: Run Pre-build Scripts
         run: |
-          uv sync
+          uv sync --no-default-groups
           uv run python optimize_fonts.py
           uv run python sync_data.py
+          find content -name "*.md" -exec sed -i 's|../../static/images/|/images/|g' {} +
+
 
       - name: Install Zola
         uses: taiki-e/install-action@v2
@@ -45,7 +48,7 @@ jobs:
         run: zola build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./public
 

@@ -4,13 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPCXH7NF4W"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QPCXH7NF4W');
+    </script>
     {% block desc %}
     {% endblock desc %}
     <meta name="keywords"
           content="{%- block keywords -%}{%- endblock keywords -%}">
     <title>
-      {% block title %}
-      {% endblock title %}
+      {%- block title -%}
+      {%- endblock title -%}
     </title>
     <link rel="icon"
           type="image/png"

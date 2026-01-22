@@ -9,3 +9,14 @@ dependencies = [
     "fonttools>=4.61.1",
     "niquests>=3.17.0",
 ]
+
+# 新增下面这个部分
+[dependency-groups]
+local = [
+    "imagekitio>=5.1.0",
+    "socksio>=1.0.0",
+]
+
+[tool.ty.environment]
+root = ["."]
+python = "./.venv"

@@ -2,6 +2,7 @@ import string
 import zipfile
 from io import BytesIO
 from pathlib import Path
+from typing import cast
 
 import niquests as requests
 from fontTools import subset
@@ -31,11 +32,9 @@ def download_font(zip_name: str, font_name: str, repository: str):
     zip_name = f'{zip_name}-v{latest_tag}.zip'
     url = f'https://github.com/TakWolf/{repository}/releases/download/{latest_tag}/{zip_name}'
     print(f'Downloading {url} ...')
-
     resp = requests.get(url)
     resp.raise_for_status()
-    resp = resp.content
-    with zipfile.ZipFile(BytesIO(resp)) as z:
+    with zipfile.ZipFile(BytesIO(cast(bytes,resp.content))) as z:
         with z.open(font_name) as font_file:
             target_path = TARGET_DIR / font_name
             target_path.parent.mkdir(parents=True, exist_ok=True)
