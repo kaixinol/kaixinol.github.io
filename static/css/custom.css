@@ -30,6 +30,57 @@ samp {
   -webkit-font-smoothing: none;
 }
 
+/* --- 基础共有样式 --- */
+kbd,
+samp {
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: all 0.2s ease; /* 切换主题时平滑一点 */
+}
+
+/* --- 亮色模式 (复古灰白色键帽) --- */
+kbd {
+  color: #333;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-bottom: 3px solid #999;
+  box-shadow: 0 1px 0 #666;
+}
+
+/* --- 深色模>式 (硬核像素立体感) --- */
+body.dark kbd {
+  color: #fff;
+  background: #444;
+  border: 1px solid #666;
+
+  border-bottom: 4px solid #222222;
+
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  text-shadow: 0 1px 0 #000;
+}
+
+/* samp: 浅色控制台 */
+samp {
+  color: #d12; /* 偏红或偏蓝，突出显示 */
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  display: block;
+  white-space: pre;
+  overflow-x: auto;
+}
+samp.inline {
+  display: inline; /* 回到行内显示 */
+  white-space: nowrap; /* 不换行 */
+  padding: 2px 4px; /* 缩小内边距 */
+  margin: 0 2px;
+}
+body.dark samp {
+  color: #00ff41;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+}
 body:not(.dark) [type="checkbox"],
 body:not(.dark) [type="search"],
 body:not(.dark) [type="radio"] {

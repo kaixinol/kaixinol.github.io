@@ -24,7 +24,6 @@ tags = ["测试"]
 ---
 
 ## 1. 列表测试
-
 **无序列表：**
 
 - 西瓜
@@ -65,7 +64,15 @@ tags = ["测试"]
 
 ## 4. 其他元素
 
-<kbd>Ctrl+Z</kbd>
+撤回是： <kbd>Ctrl+Z</kbd>
+
+`dir c:`
+
+<samp>Volume in drive C has no label.
+Volume Serial Number is 1234-ABCD
+Directory of C:\ </samp>
+
+输出是<samp class="inline">OK</samp>
 
 **脚注：**
 这是一个带有脚注的句子[^1]
