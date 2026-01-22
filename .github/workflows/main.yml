@@ -3,8 +3,13 @@ name: Build and Deploy Zola
 on:
   push:
     branches: ["master"]
-  workflow_dispatch:
-
+    paths-ignore:
+      - "README.md"
+      - ".vscode/**"
+      - ".gitignore"
+      - "local_preview.sh"
+      - "upload_cache.json" # 这是你上传脚本的缓存，不影响站点构建
+      - "upload_img.py"
 permissions:
   contents: read
   pages: write
@@ -29,7 +34,6 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           python-version: 3.14
-          enable-cache: true
 
       - name: Run Pre-build Scripts
         run: |
@@ -37,7 +41,6 @@ jobs:
           uv run python optimize_fonts.py
           uv run python sync_data.py
           find content -name "*.md" -exec sed -i 's|../../static/images/|/images/|g' {} +
-
 
       - name: Install Zola
         uses: taiki-e/install-action@v2
