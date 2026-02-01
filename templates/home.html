@@ -3,20 +3,20 @@ block lang -%} {% if section.extra.lang -%} {{ section.extra.lang -}} {% else
 -%} {{ section.lang -}} {% endif -%} {%- endblock lang %} {%- block title -%} {{
 config.title }} {%- endblock title -%} {% block desc %}
 <meta name="description" content="{{ config.description }}" />
-{% endblock desc %} {% block head %} {% if config.markdown.highlight_theme ==
-"css" %} {% if config.extra.force_theme == "dark" %}
+{% endblock desc %} {% block head %} {% if config.markdown.highlighting.style ==
+"class" %} {% if config.extra.force_theme == "dark" %}
 <link
   id="hl"
   rel="stylesheet"
   type="text/css"
-  href="{{ get_url(path='hl-dark.css') }}"
+  href="{{ get_url(path='giallo-dark.css') }}"
 />
 {% else %}
 <link
   id="hl"
   rel="stylesheet"
   type="text/css"
-  href="{{ get_url(path='hl-light.css') }}"
+  href="{{ get_url(path='giallo-light.css') }}"
 />
 {% endif %} {% endif %} {% if section.extra.math %}
 <link
@@ -141,7 +141,7 @@ config.title }} {%- endblock title -%} {% block desc %}
           aria-label="{{ link.name }}"
           title="{{ link.name }}"
           target="_blank"
-          rel="noreferrer noopener{% if link.is_me is defined and link.is_me %} me{% endif %}"
+          rel="noreferrer noopener"
         >
           {% set icon_path = "icon/" ~ link.icon ~ ".svg" %} {% set icon =
           load_data(path=icon_path) %} {{ icon | safe }}

@@ -81,8 +81,6 @@ body.dark samp {
   border: 1px solid #333;
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
 }
-body:not(.dark) [type="checkbox"],
-body:not(.dark) [type="search"],
-body:not(.dark) [type="radio"] {
+body:not(.dark) [type="search"]{
   color-scheme: light;
 }

@@ -13,8 +13,8 @@ name = "Kaesinol"
 bio = "cat person, suicidee"
 avatar = "https://avatars.githubusercontent.com/u/100816732"
 links = [
-    { name = "GitHub", icon = "github", url = "https://github.com/kaixinol",is_me=true  },
-    { name = "Mastodon", icon = "mastodon", url = "https://mastodon.social/@askirin", is_me=true },
+    { name = "GitHub", icon = "github", url = "https://github.com/kaixinol"},
+    { name = "Mastodon", icon = "mastodon", url = "https://mastodon.social/@askirin", rel_me=true },
     { name = "ryan403bad at gmail.com", icon = "email", url = "svg/email.svg"},
 ]
 

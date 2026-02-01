@@ -90,7 +90,7 @@ C -->|Two| E[Result 2]
 {% end %}
 {{ youtube(id="dCKeXuVHl1o") }}
 
-{{ bilibili(id="BV1PbqbB2Ekr") }}
+{{ bilibili(id="BV1NV4y1U7LR") }}
 {{ bili_dynamic(id="932886473164718087") }}
 {{ x(id="1465347002426867720", mode="archive") }}
 {% note(title="Note") %}
@@ -122,7 +122,7 @@ let six = plus_one(five);
 let none = plus_one(None);
 ```
 
-```bash
+```text,bash=true
 #!/bin/bash
 $ echo hello
 # sudo pacman -S zola
