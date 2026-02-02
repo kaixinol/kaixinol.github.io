@@ -1,0 +1,11 @@
+<ruby style="ruby-align: center;">
+    {{ body }}
+    <rp>(</rp>
+    <rt
+        style="font-size: {{ size | default(value='0.85') }}em; cursor: help;"
+        title="{{ title | default(value='IPA') }}"
+    >
+        {{ char }}
+    </rt>
+    <rp>)</rp>
+</ruby>

@@ -42,7 +42,8 @@ featured = true
 sections = [
   { name = "posts", path = "/posts", is_external = false },
   { name = "tags", path = "/tags", is_external = false },
-  { name = "github", path = "https://github.com/kaixinol", is_external = true }
+  { name = "github", path = "https://github.com/kaixinol", is_external = true },
+  { name = "about", path = "/about", is_external = false },
 ]
 blog_section_path = "/posts"
 

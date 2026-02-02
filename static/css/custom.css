@@ -17,6 +17,7 @@ body {
   font-family: "ArkPixel", sans-serif;
   image-rendering: pixelated;
   -webkit-font-smoothing: none;
+  text-autospace: normal;
 }
 
 /* 设置代码字体 */
@@ -81,6 +82,41 @@ body.dark samp {
   border: 1px solid #333;
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
 }
-body:not(.dark) [type="search"]{
+body:not(.dark) [type="search"] {
   color-scheme: light;
+}
+/* --- Ruby 注音通用样式 --- */
+ruby {
+  /* 确保像素字体渲染清晰 */
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  /* 适当增加行高，防止音标挤压上一行文字 */
+  line-height: 2.2;
+}
+
+rt {
+  /* 使用代码字体，因为 IPA 音标在等宽像素字体下辨识度更高 */
+  font-family: "RetroPixel", monospace;
+  /* 默认字号，会被 shortcode 里的 size 参数覆盖 */
+  font-size: 0.85em;
+  /* 增加一点间距，防止像素点粘在一起 */
+  letter-spacing: 0.05em;
+}
+
+/* --- 亮色模式 --- */
+ruby rt {
+  color: #555; /* 深灰色，既清晰又不夺目 */
+  text-shadow: 1px 1px 0 #fff; /* 像素风格的硬投影，增加层次感 */
+}
+
+/* --- 深色模式 (body.dark) --- */
+body.dark ruby rt {
+  color: #00ff41; /* 经典的黑客绿/终端绿，匹配你的 samp 风格 */
+  text-shadow: 1px 1px 0 #000; /* 黑色硬投影，确保在暗色背景下浮现 */
+}
+
+/* 悬停特效：像素风互动 */
+ruby:hover rt {
+  color: #ff003c; /* 鼠标悬停时变色（类似红色像素） */
+  transition: color 0.1s steps(1); /* 像素风不建议平滑过渡，steps(1) 更有断点感 */
 }

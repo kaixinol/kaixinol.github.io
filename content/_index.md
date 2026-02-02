@@ -26,4 +26,5 @@ date_format = "%b %-d, %Y"
 cosmos = true
 +++
 
-Hi, I'm ...
+欢迎来到我的博客……
+
