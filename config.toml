@@ -42,7 +42,6 @@ featured = true
 sections = [
   { name = "posts", path = "/posts", is_external = false },
   { name = "tags", path = "/tags", is_external = false },
-  { name = "github", path = "https://github.com/kaixinol", is_external = true },
   { name = "about", path = "/about", is_external = false },
 ]
 blog_section_path = "/posts"
@@ -50,7 +49,8 @@ blog_section_path = "/posts"
 back_link_text = "Back" # Text of the back button
 force_theme = false # false | "light" | "dark"
 
-footer_copyright = "Content licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>"
+footer_copyright = """Content licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.
+    Code licensed under <a href=\"https://opensource.org/licenses/MIT\">MIT</a>."""
 footer_credits = true # Whether to show "Built with zola and serene" in footer
 not_found_error_text = "404 Not Found"
 not_found_recover_text = "« back to home »"
