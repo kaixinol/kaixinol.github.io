@@ -1,13 +1,13 @@
 +++
 title = "使用大语言模型快速开发TypeScript油猴脚本的感受"
 date = 2026-02-02
-
+description = "一篇开发TypeScript油猴脚本感想"
 [taxonomies]
 categories = ["技术"]
 tags = ["ai", "typescript", "油猴","alpinejs"]
 +++
 
-最近今天我完全零基础编写了一个[TypeScript油猴脚本](https://github.com/kaixinol/Bilibili-User-Remark/)，并且使用了大语言模型来帮助我快速生成脚本的代码，样式从[这个脚本](https://greasyfork.org/zh-CN/scripts/563444)借鉴，因为我发现似乎AI不是很会写样式……笨笨的。……幸好别人已经提前写好了样式
+最近今天我完全零基础编写了一个[TypeScript油猴脚本](https://github.com/kaixinol/Bilibili-User-Memo/)，并且使用了大语言模型来帮助我快速生成脚本的代码，样式从[这个脚本](https://greasyfork.org/zh-CN/scripts/563444)借鉴，因为我发现似乎AI不是很会写样式……笨笨的。……幸好别人已经提前写好了样式
 
 目前发现的坑有两个：
 
@@ -19,4 +19,3 @@ tags = ["ai", "typescript", "油猴","alpinejs"]
 浪费了好多时间啊，人果然不能太习惯AI，AI太偷懒了，不知道去搜索网址，及时更新。
 
 快写完了，应该就差wbi签名更新UP主信息这方面难写一点，相信难不倒我的。
-

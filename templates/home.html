@@ -65,7 +65,7 @@ config.title }} {%- endblock title -%} {% block desc %}
   {% endif %}
 
   <main>
-    <section id="search" style="margin: 3rem 0 3rem 1rem; width: 50%">
+    <section id="search" class="home-search">
       <form
         action="https://www.google.com/search"
         method="get"
@@ -74,20 +74,11 @@ config.title }} {%- endblock title -%} {% block desc %}
       >
         <input
           type="search"
+          class="home-search-input"
           name="as_q"
           placeholder="Search…"
           aria-label="Search"
           autocomplete="off"
-          style="
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            font-size: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #ccc;
-            font-family:
-              system-ui,
-              Segoe UI sans-serif;
-          "
         />
         <input
           type="hidden"

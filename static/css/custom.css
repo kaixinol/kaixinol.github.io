@@ -85,6 +85,30 @@ body.dark samp {
 body:not(.dark) [type="search"] {
   color-scheme: light;
 }
+
+#search.home-search {
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 34rem;
+}
+
+.home-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-family: system-ui, "Segoe UI", sans-serif;
+}
+
+@media (min-width: 768px) {
+  #search.home-search {
+    margin: 3rem 0 3rem 1rem;
+    width: min(70%, 34rem);
+  }
+}
+
 /* --- Ruby 注音通用样式 --- */
 ruby {
   /* 确保像素字体渲染清晰 */

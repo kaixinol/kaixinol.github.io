@@ -9,7 +9,7 @@ footer = true
 
 # If you don't want to display id/bio/avatar, simply comment out that line
 name = "Kaesinol"
-# id = "jhonwick"
+# id = ""
 bio = "cat person, suicidee"
 avatar = "https://avatars.githubusercontent.com/u/100816732"
 links = [
@@ -27,4 +27,3 @@ cosmos = true
 +++
 
 欢迎来到我的博客……
-

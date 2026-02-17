@@ -13,16 +13,16 @@
                 defer
                 src="https://giscus.app/client.js"></script>
         <script>
-    if (theme !== undefined) {
-      const theme =
-        JSON.parse(sessionStorage.getItem("appearance") || "{}")?.theme ||
-        "light";
-    }
+    const storedTheme = sessionStorage.getItem("theme");
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    const theme = storedTheme || systemTheme;
     const giscusScript = document.querySelector(
       'script[src="https://giscus.app/client.js"]',
     );
     if (giscusScript) {
-      giscusScript.setAttribute("data-theme", theme);
+      giscusScript.setAttribute("data-theme", `${location.origin}/giscus_${theme}.css`);
     }
         </script>
 </div>
