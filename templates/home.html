@@ -89,9 +89,21 @@ config.title }} {%- endblock title -%} {% block desc %}
     </section>
     <section id="info">
       {% if section.extra.avatar is starting_with("http") %}
-      <img src="{{ section.extra.avatar }}" class="avatar" />
+      <img
+        src="{{ section.extra.avatar }}"
+        class="avatar"
+        alt="Avatar of {{ section.extra.name }}"
+        height="105"
+        width="105"
+      />
       {% else %}
-      <img src="{{ get_url(path=section.extra.avatar) }}" class="avatar" />
+      <img
+        src="{{ get_url(path=section.extra.avatar) }}"
+        class="avatar"
+        alt="Avatar of {{ section.extra.name }}"
+        height="105"
+        width="105"
+      />
       {% endif %}
       <div id="text">
         <div>

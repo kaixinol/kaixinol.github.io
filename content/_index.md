@@ -11,7 +11,7 @@ footer = true
 name = "Kaesinol"
 # id = ""
 bio = "cat person, suicidee"
-avatar = "https://avatars.githubusercontent.com/u/100816732"
+avatar = "https://avatars.githubusercontent.com/u/100816732?s=105"
 links = [
     { name = "GitHub", icon = "github", url = "https://github.com/kaixinol"},
     { name = "Mastodon", icon = "mastodon", url = "https://mastodon.social/@askirin", rel_me=true },
