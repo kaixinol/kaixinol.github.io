@@ -1,157 +1,161 @@
-{% set data = load_data(path="data/x.json", format="json", required=false) %}
-{% if data and data[id] %}
-  {% set item = data[id] %}
-  {% set limit = 200 %}
-  {% set is_long = item.text | length > limit %}
-  <style>
-/* 容器 */
-.sc-card-{{ id }} {
-  border: 1px solid var(--brd);
-  border-radius: 12px;
-  background: var(--bg);
-  color: var(--txt);
-}
+{% set data = load_data(path="data/x.json", format="json", required=false) %} {%
+if data and data[id] %} {% set item = data[id] %} {% set limit = 200 %} {% set
+is_long = item.text | length > limit %}
+<style>
+  /* 容器 */
+  .sc-card-{{ id }} {
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--txt);
+  }
 
-/* 头部布局：强制左对齐 */
-.sc-header-{{ id }} {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* 确保不向两端撑开 */
-  margin-bottom: 4px;
-  gap: 10px; /* 统一控制头像和文字间距 */
-}
+  /* 头部布局：强制左对齐 */
+  .sc-header-{{ id }} {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 确保不向两端撑开 */
+    margin-bottom: 4px;
+    gap: 10px; /* 统一控制头像和文字间距 */
+  }
 
-/* 头像：独立于 a 标签 */
-.prose .sc-face-{{ id }} {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid var(--brd);
-  object-fit: cover;
-  flex-shrink: 0;
-  margin: 0; /* 清除之前的 margin-right，由 gap 控制 */
-}
+  /* 头像：独立于 a 标签 */
+  .prose .sc-face-{{ id }} {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--brd);
+    object-fit: cover;
+    flex-shrink: 0;
+    margin: 0; /* 清除之前的 margin-right，由 gap 控制 */
+  }
 
-/* 用户链接：仅包裹文字 */
-.sc-user-link-{{ id }} {
-  text-decoration: none;
-  color: inherit;
-  display: inline-flex; /* 保持行内块特性，不撑满全行 */
-  align-items: center;
-}
+  /* 用户链接：仅包裹文字 */
+  .sc-user-link-{{ id }} {
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex; /* 保持行内块特性，不撑满全行 */
+    align-items: center;
+  }
 
-.sc-username-{{ id }} {
-  font-weight: bold;
-  font-size: 0.95rem;
-}
+  .sc-username-{{ id }} {
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
 
-/* 内容区域 */
-.sc-content-{{ id }} {
-  line-height: 1.5;
-  white-space: pre-wrap;
-  margin-bottom: 8px;
-}
+  /* 内容区域 */
+  .sc-content-{{ id }} {
+    line-height: 1.5;
+    white-space: pre-wrap;
+    margin-bottom: 8px;
+  }
 
-/* 图片网格与缩略图 */
-.sc-imgs-{{ id }} {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15vmin, 1fr));
-  gap: 8px;
-  margin-top: 8px;
-}
+  /* 图片网格与缩略图 */
+  .sc-imgs-{{ id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15vmin, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
 
-.sc-img-item-{{ id }} {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.04);
-  border-radius: 8px;
-  object-fit: cover;
-  display: block;
-}
+  .sc-img-item-{{ id }} {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+  }
 
-/* 底部来源 */
-.sc-footer-{{ id }} {
-  margin-top: 10px;
-  border-top: 1px solid var(--brd);
-  padding-top: 8px;
-  display: flex;
-  justify-content: flex-end;
-}
+  /* 底部来源 */
+  .sc-footer-{{ id }} {
+    margin-top: 10px;
+    border-top: 1px solid var(--brd);
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+  }
 
-.sc-source-link-{{ id }} {
-  text-decoration: none;
-  color: inherit;
-  font-size: 0.85rem;
-}
-  </style>
-  <div class="sc-card-{{ id }}">
-    <div class="sc-header-{{ id }}">
-      <img src="{{ item.face }}"
-           alt="{{ item.user }}'s avatar"
-           width="36"
-           height="36"
-           class="sc-face-{{ id }}"
-           referrerpolicy="no-referrer"
-           loading="lazy" />
-      <a href="{{ item.user_link }}"
-         target="_blank"
-         class="sc-user-link-{{ id }}">
-        <span class="sc-username-{{ id }}">{{ item.user }}</span>
-      </a>
-    </div>
-    {% if mode is defined and mode == "archive" %}
-      <details class="sc-details-{{ id }}">
-        <summary>
-          查看存档内容
-          {% if item.images and item.images | length > 0 %}(包含 {{ item.images | length }} 张图片){% endif %}
-        </summary>
-        <div class="sc-archive-body-{{ id }}">
-          <div class="sc-content-{{ id }}">{{ item.text }}</div>
-          {% if item.images %}
-            <div class="sc-imgs-{{ id }}">
-              {% for img in item.images %}
-                <img src="{{ img }}"
-                     alt="Bilibili dynamic image"
-                     width="150"
-                     height="150"
-                     class="sc-img-item-{{ id }}"
-                     referrerpolicy="no-referrer"
-                     loading="lazy" />
-              {% endfor %}
-            </div>
-          {% endif %}
-        </div>
-      </details>
-    {% else %}
-      <div class="sc-content-{{ id }}">
-        {% if is_long %}
-          {{ item.text | truncate(length=limit, end="") }}
-          <span class="sc-ellipsis-{{ id }}">……</span>
-        {% else %}
-          {{ item.text }}
-        {% endif %}
-      </div>
-      {% if item.images %}
-        <div class="sc-imgs-{{ id }}">
-          {% for img in item.images %}
-            <img src="{{ img }}"
-                 alt="Bilibili dynamic image"
-                 width="150"
-                 height="150"
-                 class="sc-img-item-{{ id }}"
-                 referrerpolicy="no-referrer"
-                 loading="lazy" />
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endif %}
-    <div class="sc-footer-{{ id }}">
-      <a href="{{ item.link }}"
-         target="_blank"
-         class="sc-source-link-{{ id }}"
-         title="点击跳转原始网页">
-        <span class="sc-date-{{ id }}">{{ item.date }}</span>
-        <span>· X ↗</span>
-      </a>
-    </div>
+  .sc-source-link-{{ id }} {
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.85rem;
+  }
+</style>
+<div class="sc-card-{{ id }}">
+  <div class="sc-header-{{ id }}">
+    <img
+      src="{{ item.face }}"
+      alt="{{ item.user }}'s avatar"
+      width="36"
+      height="36"
+      class="sc-face-{{ id }} no-lightense"
+      referrerpolicy="no-referrer"
+      loading="lazy"
+    />
+    <a
+      href="{{ item.user_link }}"
+      target="_blank"
+      class="sc-user-link-{{ id }}"
+    >
+      <span class="sc-username-{{ id }}">{{ item.user }}</span>
+    </a>
   </div>
+  {% if mode is defined and mode == "archive" %}
+  <details class="sc-details-{{ id }}">
+    <summary>
+      查看存档内容 {% if item.images and item.images | length > 0 %}(包含 {{
+      item.images | length }} 张图片){% endif %}
+    </summary>
+    <div class="sc-archive-body-{{ id }}">
+      <div class="sc-content-{{ id }}">{{ item.text }}</div>
+      {% if item.images %}
+      <div class="sc-imgs-{{ id }}">
+        {% for img in item.images %}
+        <img
+          src="{{ img }}"
+          alt="Bilibili dynamic image"
+          width="150"
+          height="150"
+          class="sc-img-item-{{ id }}"
+          referrerpolicy="no-referrer"
+          loading="lazy"
+        />
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </details>
+  {% else %}
+  <div class="sc-content-{{ id }}">
+    {% if is_long %} {{ item.text | truncate(length=limit, end="") }}
+    <span class="sc-ellipsis-{{ id }}">……</span>
+    {% else %} {{ item.text }} {% endif %}
+  </div>
+  {% if item.images %}
+  <div class="sc-imgs-{{ id }}">
+    {% for img in item.images %}
+    <img
+      src="{{ img }}"
+      alt="Bilibili dynamic image"
+      width="150"
+      height="150"
+      class="sc-img-item-{{ id }}"
+      referrerpolicy="no-referrer"
+      loading="lazy"
+    />
+    {% endfor %}
+  </div>
+  {% endif %} {% endif %}
+  <div class="sc-footer-{{ id }}">
+    <a
+      href="{{ item.link }}"
+      target="_blank"
+      class="sc-source-link-{{ id }}"
+      title="点击跳转原始网页"
+    >
+      <span class="sc-date-{{ id }}">{{ item.date }}</span>
+      <span>· X ↗</span>
+    </a>
+  </div>
+</div>
 {% endif %}
