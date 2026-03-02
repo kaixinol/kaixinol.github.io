@@ -19,6 +19,8 @@ source .venv/bin/activate
 python optimize_fonts.py
 python upload_img.py
 python sync_data.py
-zola serve --drafts
+zola build
+wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
+python -m http.server -d public --bind localhost 8000
 
 

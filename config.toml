@@ -5,7 +5,7 @@
 #
 #=========================================================================================
 
-base_url = "https://kaixinol.github.io"
+base_url = "/"
 title = "Kaesinol's Blog"
 description = "A blog about programming, technology, and more."
 default_language = "zh-CN"

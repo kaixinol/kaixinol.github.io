@@ -49,7 +49,8 @@ jobs:
 
       - name: Build Zola
         run: zola build
-
+      - name: Replace JS Library
+        run: wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
