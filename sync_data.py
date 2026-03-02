@@ -1,14 +1,16 @@
 import json
 import os
 import re
+from collections.abc import Callable
 from datetime import datetime
 from functools import wraps
+from typing import TypedDict
 
 import niquests as requests
 
 # X (Twitter) 通用 Header
 X_HEADERS = {
-    'User-Agent': 'KaesinoBlogSpider/1.0 (+https://github.com/kaixinol)',
+    'User-Agent': 'KaesinolBlogSpider/1.0 (+https://github.com/kaixinol)',
     'Referer': 'https://www.google.com/',
 }
 
@@ -52,7 +54,7 @@ def get_bilibili_data(b_id):
     )
 
     # --- 图片提取逻辑 ---
-    images = []
+    images: list[str] = []
     if 'item' in inner_card and 'pictures' in inner_card['item']:
         images = [p['img_src']+"@1024w1024h_70q.avif" for p in inner_card['item']['pictures']]
     if 'origin' in inner_card:
@@ -78,14 +80,16 @@ def get_bilibili_data(b_id):
                     images = [origin_json['pic']]
 
     return {
-            'user': user,
-            'face': inner_card['author']['face'] if 'author' in inner_card else inner_card['user']["head_url"],
-            'text': content,
-            'images': images,
-            'date': format_date(ts),
-            'link': f'https://bilibili.com/opus/{b_id}',
-            'user_link': f'https://space.bilibili.com/{uid}',
-        }
+        'user': user,
+        'face': inner_card['author']['face']
+        if 'author' in inner_card
+        else inner_card['user']['head_url'],
+        'text': content,
+        'images': [image.replace('http:', 'https:') for image in images],
+        'date': format_date(ts),
+        'link': f'https://bilibili.com/opus/{b_id}',
+        'user_link': f'https://space.bilibili.com/{uid}',
+    }
 
 
 @wrap_errors
@@ -111,14 +115,17 @@ def get_x_data(x_id):
         'user_link': f'https://x.com/{t["author"]["screen_name"]}',
     }
 
-
+class PlatformConfig(TypedDict):
+    pattern: str
+    fetcher: Callable[..., object]
+    file: str
 
 
 def main():
     print('>>> 开始扫描 Markdown 文件...')
     os.makedirs('data', exist_ok=True)
 
-    platforms = {
+    platforms: dict[str, PlatformConfig] = {
         'bili': {
             'pattern': r'bili_dynamic\(id="(\d+)"',
             'fetcher': get_bilibili_data,
