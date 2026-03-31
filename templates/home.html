@@ -144,7 +144,7 @@ config.title }} {%- endblock title -%} {% block desc %}
           aria-label="{{ link.name }}"
           title="{{ link.name }}"
           target="_blank"
-          rel="noreferrer noopener"
+          rel="noreferrer noopener{% if link.rel_me%} me{% endif %}"
         >
           {% set icon_path = "icon/" ~ link.icon ~ ".svg" %} {% set icon =
           load_data(path=icon_path) %} {{ icon | safe }}

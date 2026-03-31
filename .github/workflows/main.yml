@@ -50,7 +50,22 @@ jobs:
       - name: Build Zola
         run: zola build
       - name: Replace JS Library
-        run: wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
+        run: |
+          wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
+
+          tmp=$(mktemp)
+
+          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/kaixinol/tools/git/trees/main?recursive=1" \
+          | jq -r '.tree[] | select(.path | endswith("index.html")) | .path' \
+          | sed 's#index.html$##; s#/$##; s#^#/tools/#; s#^/tools$#/tools#' \
+          | sort -u \
+          | sed 's#^#<url><loc>#; s#$#</loc></url>#' > "$tmp"
+
+          if [ -s "$tmp" ]; then
+            sed "/<\/urlset>/e cat $tmp" public/sitemap.xml > public/sitemap.new.xml
+            mv public/sitemap.new.xml public/sitemap.xml
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
