@@ -58,10 +58,13 @@ jobs:
           curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/kaixinol/tools/git/trees/main?recursive=1" \
           | jq -r '.tree[] | select(.path | endswith("index.html")) | .path' \
-          | sed 's#index.html$##; s#/$##; s#^#/tools/#; s#^/tools$#/tools#' \
+          | sed 's#index.html$##' \
+          | sed 's#^#/tools/#' \
+          | sed 's#//#/#g' \
           | sort -u \
           | sed 's#^#<url><loc>#; s#$#</loc></url>#' > "$tmp"
 
+          # 檢查內容並插入
           if [ -s "$tmp" ]; then
             sed "/<\/urlset>/e cat $tmp" public/sitemap.xml > public/sitemap.new.xml
             mv public/sitemap.new.xml public/sitemap.xml
