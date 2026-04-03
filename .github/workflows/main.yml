@@ -52,23 +52,20 @@ jobs:
       - name: Replace JS Library & Fix Sitemap
         run: |
           wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
+          tmp_file=$(mktemp)
+          uv run python add_tools.py > "$tmp_file"
 
-          tmp=$(mktemp)
-
-          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/kaixinol/tools/git/trees/main?recursive=1" \
-          | jq -r '.tree[] | select(.path | endswith("index.html")) | .path' \
-          | sed 's#index.html$##' \
-          | sed 's#^#/tools/#' \
-          | sed 's#//#/#g' \
-          | sort -u \
-          | sed 's#^#<url><loc>#; s#$#</loc></url>#' > "$tmp"
-
-          # 檢查內容並插入
-          if [ -s "$tmp" ]; then
-            sed "/<\/urlset>/e cat $tmp" public/sitemap.xml > public/sitemap.new.xml
-            mv public/sitemap.new.xml public/sitemap.xml
+          if [ -s "$tmp_file" ]; then
+            awk '
+            /<\/urlset>/ {
+              while ((getline line < "'"$tmp_file"'") > 0) print line
+            }
+            { print }
+            ' public/sitemap.xml > public/sitemap.xml.tmp && \
+            mv public/sitemap.xml.tmp public/sitemap.xml
           fi
+
+          rm -f "$tmp_file"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
