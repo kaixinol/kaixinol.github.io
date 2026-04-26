@@ -15,6 +15,6 @@ for tool in data.keys():
         )
     else:
         sitemap.append(
-            f'<url><loc>https://kaixinol.github.io/tools/{tool}</loc></url>'
+            f'<url><loc>https://kaixinol.github.io/tools/{tool}/</loc></url>'
         )
 print('\n'.join(sitemap))
