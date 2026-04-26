@@ -11,8 +11,10 @@ for tool in data.keys():
 
     if 'url' in data[tool]:
         sitemap.append(
-            f'<url><loc>/{data[tool]["url"].removeprefix("https://kaixinol.github.io/")}</loc></url>'
+            f'<url><loc>{data[tool]["url"]}</loc></url>'
         )
     else:
-        sitemap.append(f'<url><loc>/tools/{tool}</loc></url>')
+        sitemap.append(
+            f'<url><loc>https://kaixinol.github.io/tools/{tool}</loc></url>'
+        )
 print('\n'.join(sitemap))
