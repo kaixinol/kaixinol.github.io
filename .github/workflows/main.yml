@@ -10,6 +10,7 @@ on:
       - "local_preview.sh"
       - "upload_cache.json" # 这是你上传脚本的缓存，不影响站点构建
       - "upload_img.py"
+  workflow_dispatch:
 permissions:
   contents: read
   pages: write
