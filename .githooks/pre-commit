@@ -1,0 +1,15 @@
+#!/bin/bash
+# Pre-commit hook: 上传新图片到 ImageKit
+
+echo "🖼️  Running upload_img.py pre-commit hook..."
+
+# 激活虚拟环境并运行脚本
+uv run python upload_img.py
+
+# 如果脚本失败，取消 commit
+if [ $? -ne 0 ]; then
+    echo "❌ Pre-commit hook failed: upload_img.py encountered errors"
+    exit 1
+fi
+
+echo "✅ upload_img.py completed successfully"

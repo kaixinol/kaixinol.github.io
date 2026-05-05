@@ -39,8 +39,8 @@ jobs:
         run: |
           uv sync --no-default-groups
           uv run python optimize_fonts.py
+          uv run python upload_img.py
           uv run python sync_data.py
-          find content -name "*.md" -exec sed -i 's|../../static/images/|/images/|g' {} +
 
       - name: Install Zola
         uses: taiki-e/install-action@v2

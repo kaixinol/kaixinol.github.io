@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -13,6 +14,7 @@ IMAGE_DIR = Path('static/images')
 CONTENT_DIR = Path('content')
 CACHE_FILE = Path('upload_cache.json')
 MAX_CONCURRENT = 10  # 并发数控制
+IS_CI = os.environ.get('CI') == 'true'
 
 # 从环境变量获取配置
 IK_PRIVATE_KEY = os.environ.get('IK_PRIVATE_KEY')
@@ -94,6 +96,14 @@ if not IK_URL_ENDPOINT:
 # A. 上传阶段
 cache = load_cache()
 to_upload = [f for f in IMAGE_DIR.glob('*') if f.is_file() and f.name not in cache]
+
+# CI 环境下检测到新图未上传，报错退出
+if IS_CI and to_upload:
+    print(f'❌ CI 错误: 检测到 {len(to_upload)} 个新图片未上传:')
+    for f in to_upload:
+        print(f'   - {f.name}')
+    print('请先在本地运行 upload_img.py 上传图片后重新提交')
+    sys.exit(1)
 
 if to_upload and ik:
     print(f'🚀 正在上传 {len(to_upload)} 个新文件...')
