@@ -7,7 +7,10 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from threading import BoundedSemaphore, Lock
 
-from imagekitio import ImageKit
+IS_CI = os.environ.get('CI') == 'true'
+
+if not IS_CI:
+    from imagekitio import ImageKit
 
 IMAGE_DIR = Path('static/images')
 CONTENT_DIR = Path('content')
