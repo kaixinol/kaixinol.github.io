@@ -9,19 +9,15 @@ from threading import BoundedSemaphore, Lock
 
 from imagekitio import ImageKit
 
-# --- 1. 配置区 ---
 IMAGE_DIR = Path('static/images')
 CONTENT_DIR = Path('content')
 CACHE_FILE = Path('upload_cache.json')
 MAX_CONCURRENT = 10  # 并发数控制
 IS_CI = os.environ.get('CI') == 'true'
 
-# 从环境变量获取配置
+# ImageKit 配置
+IK_URL_ENDPOINT = 'https://ik.imagekit.io/kaesinol/'
 IK_PRIVATE_KEY = os.environ.get('IK_PRIVATE_KEY')
-IK_URL_ENDPOINT = os.environ.get('IK_URL_ENDPOINT')
-if IK_URL_ENDPOINT and not IK_URL_ENDPOINT.endswith('/'):
-    IK_URL_ENDPOINT += '/'
-# --- 2. 初始化 ---
 ik = None
 if IK_PRIVATE_KEY:
     ik = ImageKit(private_key=IK_PRIVATE_KEY)
@@ -42,7 +38,6 @@ def save_cache(cache):
             json.dump(cache, f, indent=4, ensure_ascii=False)
 
 
-# --- 3. 上传逻辑 ---
 def upload_task(file_path: Path):
     with rate_limiter:
         while True:
@@ -60,7 +55,6 @@ def upload_task(file_path: Path):
                 raise e
 
 
-# --- 4. Markdown 替换逻辑 ---
 def process_markdowns(cache):
     # 正则匹配 ![alt](path)，捕获 path 部分
     # 兼容各种路径写法：../../static/images/xxx.png 或 /images/xxx.png
@@ -89,36 +83,36 @@ def process_markdowns(cache):
     return count
 
 
-# --- 5. 主程序 ---
-if not IK_URL_ENDPOINT:
-    print('❌ 错误: 请先设置 IK_URL_ENDPOINT 环境变量')
-    raise SystemExit(1)
-# A. 上传阶段
 cache = load_cache()
 to_upload = [f for f in IMAGE_DIR.glob('*') if f.is_file() and f.name not in cache]
 
-# CI 环境下检测到新图未上传，报错退出
-if IS_CI and to_upload:
-    print(f'❌ CI 错误: 检测到 {len(to_upload)} 个新图片未上传:')
-    for f in to_upload:
-        print(f'   - {f.name}')
-    print('请先在本地运行 upload_img.py 上传图片后重新提交')
-    sys.exit(1)
-
-if to_upload and ik:
-    print(f'🚀 正在上传 {len(to_upload)} 个新文件...')
-    with ThreadPoolExecutor(max_workers=MAX_CONCURRENT) as executor:
-        results = list(executor.map(upload_task, to_upload))
-        for res in results:
-            if res:
-                fname, furi = res
-                cache[fname] = furi
-    save_cache(cache)
+if IS_CI:
+    # CI 模式：只替换，不上传
+    if to_upload:
+        print(f'❌ CI 错误: 检测到 {len(to_upload)} 个新图片未上传:')
+        for f in to_upload:
+            print(f'   - {f.name}')
+        print('请先在本地运行 upload_img.py 上传图片后重新提交')
+        sys.exit(1)
+    print('🔍 CI 模式：正在扫描 Markdown 并替换链接...')
+    count = process_markdowns(cache)
+    print(f'✨ 大功告成！本次共修正 {count} 处链接。')
 else:
-    print('✅ 没有新图片需要上传' if ik else '⚠️  未配置 ImageKit，跳过图片上传阶段，改为直接对已有进行替换。')
-# B. 替换阶段
-print('🔍 正在扫描 Markdown 并修正路径...')
-count = process_markdowns(cache)
-print(f'✨ 大功告成！本次共修正 {count} 处链接。')
+    # 本地模式：只上传 + 改 cache，不替换
+    if to_upload:
+        if not IK_PRIVATE_KEY:
+            print('❌ 错误: 本地模式需要 IK_PRIVATE_KEY 才能上传图片')
+            sys.exit(1)
+        print(f'🚀 正在上传 {len(to_upload)} 个新文件...')
+        with ThreadPoolExecutor(max_workers=MAX_CONCURRENT) as executor:
+            results = list(executor.map(upload_task, to_upload))
+            for res in results:
+                if res:
+                    fname, furi = res
+                    cache[fname] = furi
+        save_cache(cache)
+        print(f'✅ 上传完成，已更新 cache（{len(to_upload)} 个文件）')
+    else:
+        print('✅ 没有新图片需要上传')
 
 
