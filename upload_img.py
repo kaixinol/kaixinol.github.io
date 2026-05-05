@@ -15,8 +15,8 @@ CACHE_FILE = Path('upload_cache.json')
 MAX_CONCURRENT = 10  # 并发数控制
 
 # 从环境变量获取配置
-IK_PRIVATE_KEY = os.environ.get('IMAGEKIT_PRIVATE_KEY')
-IK_URL_ENDPOINT = os.environ.get('IMAGEKIT_URL_ENDPOINT')
+IK_PRIVATE_KEY = os.environ.get('IK_PRIVATE_KEY')
+IK_URL_ENDPOINT = os.environ.get('IK_URL_ENDPOINT')
 if IK_URL_ENDPOINT and not IK_URL_ENDPOINT.endswith('/'):
     IK_URL_ENDPOINT += '/'
 # --- 2. 初始化 ---

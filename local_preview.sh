@@ -13,6 +13,7 @@ rsync -a \
   --exclude '.venv' \
   "$SRC/" "$TMP/"
 cp -a "$SRC/content" "$TMP/content"
+cp -a "$SRC/upload_cache.json" "$TMP/" 2>/dev/null || true
 cd "$TMP"
 find content -name "*.md" -exec sed -i 's|../../static/images/|/images/|g' {} +
 source .venv/bin/activate
