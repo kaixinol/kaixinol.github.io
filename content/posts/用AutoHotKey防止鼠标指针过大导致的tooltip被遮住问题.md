@@ -45,9 +45,9 @@ fi
 # 刷新 KWin 状态
 qdbus6 org.kde.KWin /KWin reconfigure
 ```
-2. `chmod +x wayland_cursor_hide.sh`
+3. `chmod +x wayland_cursor_hide.sh`
 
-3. 设置开机自启动，并添加对于<kbd>Ctrl + Shift</kbd>的快捷键，此快捷键指向`wayland_cursor_hide.sh`的触发。
+4. 设置开机自启动，并添加对于<kbd>Ctrl + Shift</kbd>的快捷键，此快捷键指向`wayland_cursor_hide.sh`的触发。
 
 ---
 此时，按<kbd>Ctrl + Shift</kbd>，即可不受遮挡的查看ToolTip了。
