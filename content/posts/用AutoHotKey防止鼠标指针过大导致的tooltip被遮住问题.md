@@ -18,6 +18,11 @@ tags = ["AutoHotKey", "Windows","Linux"]
 5. 修改ink，让`AutoHotKey64.exe`会打开这个ahk脚本
 6. 放到`shell:startup`中。
 # Linux （KDE）
+
+Windows 的指针和Linux的指针不通用，需要先用`cargo install currust@1.4.2`安装，并按照指示转换。
+```bash
+mv /tmp/<你的鼠标指针> ~/.local/share/icons/
+```
 1. 确保系统是KDE 6 或者更高。
 2. 在用户文件夹下新建下列脚本：
 ```bash,name=wayland_cursor_hide.sh
@@ -42,7 +47,7 @@ qdbus6 org.kde.KWin /KWin reconfigure
 ```
 2. `chmod +x wayland_cursor_hide.sh`
 
-3. 设置开机自启动，并添加对于<kbd>Ctrl + Shift</kbd>的快捷键
+3. 设置开机自启动，并添加对于<kbd>Ctrl + Shift</kbd>的快捷键，此快捷键指向`wayland_cursor_hide.sh`的触发。
 
 ---
 此时，按<kbd>Ctrl + Shift</kbd>，即可不受遮挡的查看ToolTip了。
