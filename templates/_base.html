@@ -34,6 +34,13 @@
     {% include "_custom_css.html" %}
     <link rel="stylesheet" href="{{ get_url(path='main.css') }}">
     <link rel="stylesheet" href="{{ get_url(path='css/custom.css') }}">
+    {% if page %}
+    {% if page.extra and page.extra.use_css %}
+        {% for style in page.extra.use_css %}
+            <link rel="stylesheet" href="{{ get_url(path='css/' ~ style ~ '.css') }}">
+        {% endfor %}
+    {% endif %}
+    {% endif %}
     {% block head %}
     {% endblock head %}
     {% include "_head_extend.html" %}
@@ -55,6 +62,8 @@
     {% block script %}
     {% endblock script %}
     <script src="{{ get_url(path='js/main.js') }}"></script>
-    {% if page and "posts" in page.components %}<script src="{{ get_url(path='js/hack-bash.js') }}"></script>{% endif %}
+{% if page and page.content and "data-bash=" in page.content %}
+    <script src="{{ get_url(path='js/hack-bash.js') }}"></script>
+{% endif %}
   </body>
 </html>

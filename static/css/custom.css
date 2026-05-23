@@ -104,7 +104,7 @@ body:not(.dark) [type="search"] {
 
 @media (min-width: 768px) {
   #search.home-search {
-    margin: 3rem 0 3rem 1rem;
+    margin: 3rem 0.5rem 3rem 1rem;
     width: min(70%, 34rem);
   }
 }
