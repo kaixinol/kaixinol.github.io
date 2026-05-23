@@ -219,10 +219,11 @@ dependencies = [
     { name = "brotli" },
     { name = "fonttools" },
     { name = "niquests" },
+    { name = "tomlkit" },
 ]
 
 [package.dev-dependencies]
-local = [
+dev = [
     { name = "imagekitio" },
     { name = "socksio" },
 ]
@@ -232,10 +233,11 @@ requires-dist = [
     { name = "brotli", specifier = ">=1.2.0" },
     { name = "fonttools", specifier = ">=4.61.1" },
     { name = "niquests", specifier = ">=3.17.0" },
+    { name = "tomlkit", specifier = ">=0.15.0" },
 ]
 
 [package.metadata.requires-dev]
-local = [
+dev = [
     { name = "imagekitio", specifier = ">=5.1.0" },
     { name = "socksio", specifier = ">=1.0.0" },
 ]
@@ -362,6 +364,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f8/5c/48a7d9495be3d1c651198fd99dbb6ce190e2274d0f28b9051307bdec6b85/socksio-1.0.0.tar.gz", hash = "sha256:f88beb3da5b5c38b9890469de67d0cb0f9d494b78b106ca1845f96c10b91c4ac", size = 19055, upload-time = "2020-04-17T15:50:34.664Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/37/c3/6eeb6034408dac0fa653d126c9204ade96b819c936e136c5e8a6897eee9c/socksio-1.0.0-py3-none-any.whl", hash = "sha256:95dc1f15f9b34e8d7b16f06d74b8ccf48f609af32ab33c608d08761c5dcbb1f3", size = 12763, upload-time = "2020-04-17T15:50:31.878Z" },
+]
+
+[[package]]
+name = "tomlkit"
+version = "0.15.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/51/db/03eaf4331631ef6b27d6e3c9b68c54dc6f0d63d87201fed600cc409307fd/tomlkit-0.15.0.tar.gz", hash = "sha256:7d1a9ecba3086638211b13814ea79c90dd54dd11993564376f3aa92271f5c7a3", size = 161875, upload-time = "2026-05-10T07:38:22.245Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6a/43/8bd850ee71a191bf072e31302c73a66be413fecdd98fdcd111ecbcce13ca/tomlkit-0.15.0-py3-none-any.whl", hash = "sha256:4dbc8f0fc024412b57ced8757ac7461305126a648ff8c2c807fcb8e133a78738", size = 41328, upload-time = "2026-05-10T07:38:23.517Z" },
 ]
 
 [[package]]

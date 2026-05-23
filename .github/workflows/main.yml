@@ -53,6 +53,7 @@ jobs:
       - name: Replace JS Library & Fix Sitemap
         run: |
           wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
+          sed -E -i 's/::selection\s*\{[^}]*\}//g' public/main.css
           tmp_file=$(mktemp)
           uv run python add_tools.py > "$tmp_file"
 

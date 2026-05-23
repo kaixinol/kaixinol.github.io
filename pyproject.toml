@@ -8,11 +8,12 @@ dependencies = [
     "brotli>=1.2.0",
     "fonttools>=4.61.1",
     "niquests>=3.17.0",
+    "tomlkit>=0.15.0",
 ]
 
 # 新增下面这个部分
 [dependency-groups]
-local = [
+dev = [
     "imagekitio>=5.1.0",
     "socksio>=1.0.0",
 ]
