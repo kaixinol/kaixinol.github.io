@@ -42,7 +42,7 @@ jobs:
           uv run python optimize_fonts.py
           uv run python upload_img.py
           uv run python sync_data.py
-
+          uv run python sync_css.py
       - name: Install Zola
         uses: taiki-e/install-action@v2
         with:
