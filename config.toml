@@ -18,7 +18,7 @@ generate_feeds = false # Whether to generate a feed file in root, read docs for 
 feed_filenames = ["feed.xml"] # "feed.xml" | "atom.xml" | "rss.xml", read docs for more info
 taxonomies = [{ name = "tags" }, { name = "categories" }]
 [markdown]
-lazy_async_image = false # do not enable it, see getzola/zola#2679
+lazy_async_image = false # FIXME: do not enable it, see getzola/zola#2679 (fixed in zola 0.23 (not released))
 render_emoji = true
 external_links_target_blank = true
 external_links_no_follow = true

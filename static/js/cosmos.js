@@ -1,7 +1,6 @@
 import SunCalc from "https://esm.sh/suncalc";
-
+import { getGeoFromIP } from "./getIPLocation.js";
 (function () {
-  const CHINA_DEFAULT = { lat: 35.0, lon: 105.0 };
   let canvas = null;
   let ctx = null;
   let animationId = null;
@@ -13,28 +12,9 @@ import SunCalc from "https://esm.sh/suncalc";
     localStorage.setItem("cosmos_seed", String(seed));
   }
 
-  // --- 逻辑判断 ---
-  async function getIPLocation() {
-    try {
-      //if detects China timezone, return the HACK for GFW
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if (tz.match(/Asia\/(Shanghai|Chongqing|Harbin|Urumqi)/)) {
-        console.log("Cosmos.js: Detected China timezone, using hardcoded location.");
-        return {"Asia/Shanghai": { lat: 39.9042, lon: 116.4074 }, "Asia/Chongqing": { lat: 29.5630, lon: 106.5516 }, "Asia/Harbin": { lat: 45.7528, lon: 126.6583 }, "Asia/Urumqi": { lat: 43.8257, lon: 87.6167 }}[tz];
-      }
-      const response = await fetch("https://ipapi.co/json/");
-      const data = await response.json();
-      if (data.latitude && data.longitude)
-        return { lat: data.latitude, lon: data.longitude };
-    } catch (_e) {
-      // ignore network/location errors and fall back to default
-    }
-    return CHINA_DEFAULT;
-  }
-
   async function shouldShowStars() {
     if (!document.body.classList.contains("dark")) return false;
-    const { lat, lon } = await getIPLocation();
+    const { lat, lon } = await getGeoFromIP();
     console.log(`Cosmos.js: Location detected at lat=${lat}, lon=${lon}`);
     const sun = SunCalc.getPosition(new Date(), lat, lon);
     const moon = SunCalc.getMoonIllumination(new Date());
