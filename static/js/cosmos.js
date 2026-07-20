@@ -1,4 +1,4 @@
-import SunCalc from "https://esm.sh/suncalc";
+import * as SunCalc from "https://esm.sh/suncalc";
 import { getGeoFromIP } from "./getIPLocation.js";
 (function () {
   let canvas = null;
