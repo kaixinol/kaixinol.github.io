@@ -15,7 +15,7 @@ All source code and executable files in this repository are licensed under the *
 
 All text, documentation, images, and other non-code creative assets are licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** license.
 
-- **License File:** [LICENSE-CC.txt](./LICENSE-CC.txt)
+- **License File:** [LICENSE-CC-BY-SA.txt](./LICENSE-CC-BY-SA.txt)
 - **Key Requirement:** You must give appropriate credit and distribute your contributions under the same license as the original.
 
 ---
