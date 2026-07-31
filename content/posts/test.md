@@ -6,8 +6,8 @@ draft = true
 mermaid = true
 code = true
 [taxonomies]
-categories = ["测试"]
-tags = ["测试"]
+categories = ["test"]
+tags = ["test"]
 +++
 
 这是一个为您准备的 **Markdown 综合测试文本**。它涵盖了常用的语法元素，您可以将其复制到编辑器中测试渲染效果。
