@@ -1,9 +1,11 @@
 +++
 title = "没用对LLM 接口导致的烧token过快的反思"
 date = 2026-05-04
+slug = "reflection-on-wasting-tokens-misusing-llm-api"
+aliases = ["/posts/mei-yong-dui-llm-jie-kou-dao-zhi-de-shao-tokenguo-kuai-de-fan-si/"]
 
 [taxonomies]
-categories = ["思考"]
+categories = ["thinking"]
 tags = ["ai","claude"]
 +++
 很久之前我曾经用 smai.ai 买了一些API额度，然后没一会就用光了，我还觉得这claude也太烧钱了吧……

@@ -1,9 +1,11 @@
 +++
 title = "用AutoHotKey防止鼠标指针过大导致的tooltip被遮住问题"
 date = 2026-05-23
+slug = "autohotkey-tooltip-hidden-by-large-cursor"
+aliases = ["/posts/yong-autohotkeyfang-zhi-shu-biao-zhi-zhen-guo-da-dao-zhi-de-tooltipbei-zhe-zhu-wen-ti/"]
 
 [taxonomies]
-categories = ["技术"]
+categories = ["tech"]
 tags = ["AutoHotKey", "Windows","Linux"]
 +++
 {{ bilibili(id="BV13U8CzeE74") }}

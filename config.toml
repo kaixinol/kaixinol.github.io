@@ -3,9 +3,8 @@
 # - docs: https://github.com/isunjn/serene/blob/latest/USAGE.md
 # - check for updates: https://github.com/isunjn/serene/releases
 #
-#=========================================================================================
 
-base_url = "https://kaixinol.github.io/"
+base_url = "https://kaixinol.github.io"
 title = "Kaesinol's Blog"
 description = "A blog about programming, technology, and more."
 default_language = "zh-CN"
@@ -63,3 +62,7 @@ taxonomies = [
     { name = "tags", feed = true },
     { name = "categories", feed = true },
 ]
+
+# Map English taxonomy term names to Chinese display labels (URLs stay English)
+tag_display = { userscript = "油猴" }
+category_display = { tech = "技术", thinking = "思考" }

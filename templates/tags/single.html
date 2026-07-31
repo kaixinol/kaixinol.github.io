@@ -8,9 +8,9 @@
 {% set section = get_section(path=section_md_path, metadata_only=true) %}
 {%- if section.extra.lang %}{{ section.extra.lang }}{% else %}{{ lang }}{% endif -%}
 {%- endblock lang %}
-{% block title %}标签：{{ term.name }}{% endblock title %}
+{% block title %}标签：{{ config.extra.tag_display | get(key=term.name, default=term.name) }}{% endblock title %}
 {% block desc %}
-  <meta name="description" content="{{ term.name }}">
+  <meta name="description" content="{{ config.extra.tag_display | get(key=term.name, default=term.name) }}">
 {% endblock desc %}
 
 {% block content %}
@@ -18,7 +18,7 @@
   {{ macros::back_link(path = get_url(path="/tags")) }}
   <main class="layout-list">
     <div class="title">
-      <span># {{ term.name }}</span>
+      <span># {{ config.extra.tag_display | get(key=term.name, default=term.name) }}</span>
     </div>
     <div class="post-list">
       {% for post in term.pages %}
