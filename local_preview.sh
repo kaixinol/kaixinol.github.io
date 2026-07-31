@@ -21,7 +21,7 @@ python optimize_fonts.py
 python upload_img.py
 python sync_data.py
 python sync_css.py
-sed -i 's|^base_url = "https://kaixinol\.github\.io/"|base_url = "/"|' config.toml
+sed -i 's|^base_url = .*|base_url = "/"|' config.toml
 zola build --drafts
 wget -O public/js/lightense.min.js https://cdn.jsdelivr.net/npm/@kaesinol/lightense-images@latest/dist/lightense.min.js
 sed -E -i 's/::selection\s*\{[^}]*\}//g' public/main.css
