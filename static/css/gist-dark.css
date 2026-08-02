@@ -3,41 +3,58 @@ body.dark .gist {
     .gist-file {
         border-color: #555 #555 #444;
     }
+
     .gist-data {
         border-color: #555;
+
         .pl-s .pl-s1 {
             color: #a5c261;
         }
     }
+
     .gist-meta {
         color: #fff;
         background: var(--bg-color);
+
         a {
             color: #fff;
         }
     }
+
     .highlight {
         background: var(--bg-color);
     }
 
     /* 白色文本 */
-    .blob-num, .blob-code-inner, .pl-s2, .pl-stj, .pl-vo, .pl-id, .pl-ii {
+    .blob-num,
+    .blob-code-inner,
+    .pl-s2,
+    .pl-stj,
+    .pl-vo,
+    .pl-id,
+    .pl-ii {
         color: #fff;
     }
 
     /* 粗体 */
-    .pl-enti, .pl-mb, .pl-pdb {
+    .pl-enti,
+    .pl-mb,
+    .pl-pdb {
         font-weight: 700;
     }
 
     /* 斜体棕色（注释） */
-    .pl-c, .pl-c span, .pl-pdc {
+    .pl-c,
+    .pl-c span,
+    .pl-pdc {
         color: #bc9458;
         font-style: italic;
     }
 
     /* 蓝色 */
-    .pl-c1, .pl-pdc1, .pl-scp {
+    .pl-c1,
+    .pl-pdc1,
+    .pl-scp {
         color: #6c99bb;
     }
 
@@ -57,35 +74,45 @@ body.dark .gist {
     }
 
     /* 常规字重 */
-    .pl-mdh, .pl-mdi, .pl-mdr {
+    .pl-mdh,
+    .pl-mdi,
+    .pl-mdr {
         font-weight: 400;
     }
 
     /* 斜体浅黄 */
-    .pl-mi, .pl-pdi {
+    .pl-mi,
+    .pl-pdi {
         color: #ffe5bb;
         font-style: italic;
     }
 
     /* 黄绿 */
-    .pl-sra, .pl-src, .pl-sre {
+    .pl-sra,
+    .pl-src,
+    .pl-sre {
         color: #cc3;
     }
 
     /* 绿色背景（代码新增） */
-    .pl-mdht, .pl-mi1 {
+    .pl-mdht,
+    .pl-mi1 {
         color: #a5c261;
         background: rgba(0, 64, 0, 0.5);
     }
 
     /* 红色背景（代码删除） */
-    .pl-md, .pl-mdhf {
+    .pl-md,
+    .pl-mdhf {
         color: #b83426;
         background: rgba(64, 0, 0, 0.5);
     }
 
     /* 纯红背景 */
-    .pl-ib, .pl-id, .pl-ii, .pl-iu {
+    .pl-ib,
+    .pl-id,
+    .pl-ii,
+    .pl-iu {
         background: #b83426;
     }
 
@@ -127,7 +154,13 @@ body.dark .gist {
     }
 
     /* 嫩绿 */
-    .pl-cos, .pl-ml, .pl-pds, .pl-s1, .pl-sol, .pl-mb, .pl-pdb {
+    .pl-cos,
+    .pl-ml,
+    .pl-pds,
+    .pl-s1,
+    .pl-sol,
+    .pl-mb,
+    .pl-pdb {
         color: #a5c261;
     }
 
@@ -164,25 +197,34 @@ body.dark .gist {
         color: #b83426;
     }
 }
+
 div.gist .blob-num {
     display: none;
 }
+
 div.gist .gist-file {
     border: 1.5px solid var(--primary-color);
     display: flex;
     flex-direction: column;
 }
+
 div.gist .gist-data {
     order: 2;
     border-radius: 0 0 4px 4px;
 }
+
 div.gist .gist-meta {
     order: 1;
     border-radius: 4px 4px 0 0;
     border-bottom: 1px solid #555;
 }
+
 div.gist .blob-code-inner {
     font-family:
         "RetroPixel", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco,
         Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+}
+
+td.blob-code.blob-code-inner {
+    font-size: 1rem;
 }

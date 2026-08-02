@@ -11,6 +11,7 @@
   src: url("/fonts/retro-pixel-cute-mono.ttf.woff2") format("woff2");
   font-display: swap;
 }
+
 /* 设置全文字体 */
 html,
 body {
@@ -29,6 +30,7 @@ samp {
   font-family: "RetroPixel", "ArkPixel", monospace !important;
   image-rendering: pixelated;
   -webkit-font-smoothing: none;
+  font-size: 1rem;
 }
 
 /* --- 基础共有样式 --- */
@@ -36,7 +38,8 @@ kbd,
 samp {
   padding: 2px 5px;
   border-radius: 3px;
-  transition: all 0.2s ease; /* 切换主题时平滑一点 */
+  transition: all 0.2s ease;
+  /* 切换主题时平滑一点 */
 }
 
 /* --- 亮色模式 (复古灰白色键帽) --- */
@@ -46,6 +49,7 @@ kbd {
   border: 1px solid #ccc;
   border-bottom: 3px solid #999;
   box-shadow: 0 1px 0 #666;
+  margin-inline: 0.3em;
 }
 
 /* --- 深色模>式 (硬核像素立体感) --- */
@@ -63,25 +67,32 @@ body.dark kbd {
 
 /* samp: 浅色控制台 */
 samp {
-  color: #d12; /* 偏红或偏蓝，突出显示 */
+  color: #d12;
+  /* 偏红或偏蓝，突出显示 */
   background-color: #f8f8f8;
   border: 1px solid #ddd;
   display: block;
   white-space: pre;
   overflow-x: auto;
 }
+
 samp.inline {
-  display: inline; /* 回到行内显示 */
-  white-space: nowrap; /* 不换行 */
-  padding: 2px 4px; /* 缩小内边距 */
+  display: inline;
+  /* 回到行内显示 */
+  white-space: nowrap;
+  /* 不换行 */
+  padding: 2px 4px;
+  /* 缩小内边距 */
   margin: 0 2px;
 }
+
 body.dark samp {
   color: #00ff41;
   background-color: #1a1a1a;
   border: 1px solid #333;
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
 }
+
 body:not(.dark) [type="search"] {
   color-scheme: light;
 }
@@ -129,18 +140,24 @@ rt {
 
 /* --- 亮色模式 --- */
 ruby rt {
-  color: #555; /* 深灰色，既清晰又不夺目 */
-  text-shadow: 1px 1px 0 #fff; /* 像素风格的硬投影，增加层次感 */
+  color: #555;
+  /* 深灰色，既清晰又不夺目 */
+  text-shadow: 1px 1px 0 #fff;
+  /* 像素风格的硬投影，增加层次感 */
 }
 
 /* --- 深色模式 (body.dark) --- */
 body.dark ruby rt {
-  color: #00ff41; /* 经典的黑客绿/终端绿，匹配你的 samp 风格 */
-  text-shadow: 1px 1px 0 #000; /* 黑色硬投影，确保在暗色背景下浮现 */
+  color: #00ff41;
+  /* 经典的黑客绿/终端绿，匹配你的 samp 风格 */
+  text-shadow: 1px 1px 0 #000;
+  /* 黑色硬投影，确保在暗色背景下浮现 */
 }
 
 /* 悬停特效：像素风互动 */
 ruby:hover rt {
-  color: #ff003c; /* 鼠标悬停时变色（类似红色像素） */
-  transition: color 0.1s steps(1); /* 像素风不建议平滑过渡，steps(1) 更有断点感 */
+  color: #ff003c;
+  /* 鼠标悬停时变色（类似红色像素） */
+  transition: color 0.1s steps(1);
+  /* 像素风不建议平滑过渡，steps(1) 更有断点感 */
 }

@@ -63,7 +63,10 @@
     {% endblock script %}
     <script src="{{ get_url(path='js/main.js') }}"></script>
 {% if page and page.content and "data-bash=" in page.content %}
-    <script src="{{ get_url(path='js/hack-bash.js') }}"></script>
-{% endif %} <!--针对直接复制在控制台执行的bash的hack-->
+    <script defer src="{{ get_url(path='js/hack-bash.js') }}"></script><!--针对直接复制在控制台执行的bash的hack-->
+{% endif %}
+{% if page and page.content and 'script src="https://gist.github.com/' in page.content %}
+    <script defer src="{{ get_url(path='js/hack-gist-theme.js') }}"></script>
+{% endif %}
   </body>
 </html>
